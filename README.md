@@ -1,34 +1,73 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Project setup
+
+To setup the project locall, you will need to do some installations
+* [Nodejs](https://nodejs.org/en)
+* [Amplify Cli](https://docs.amplify.aws/cli/start/install/) - After installation, run `amplify configure` and provide accessKey and secretKey.
+* [Git](https://git-scm.com/downloads) 
+
+
 
 ## Getting Started
 
-First, run the development server:
+First, install all packages
 
 ```bash
+npm i
+# or
+npm install
+```
+Now, clone amplify from cloud. make sure you are in right git branch .
+```bash
+amplify pull --appId APP_ID --envName ENV_NAME
+```
+This will,
+* Authenticate local application with AWS account
+* Clone the configuration from cloud
+* Download all backend files from cloud, if you hit Yes to `edit backend now` option.
+
+You can check environemnt status by running command 
+```bash
+amplify status
+```
+If you are in *develop* branch, amplify environment should be *develop*. otherwise, switch to required env by running
+```bash
+amplify checkout env ENV_NAME
+```
+Run the app locally,
+```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Branch checkout and CI/CD
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The project is using CI/CD pipeline for fullstack deployment. That's mean, avoid running command `amplify push` on any backend change.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Checkout to other branch, steps to follow
+```bash
+git checkout BRANCH_NAME
+```
+Checkout to required amplify env
+```bash
+amplify checkout env ENV_NAME
+```
+
+If you have local changes to push
+
+Stach all changes 
+```bash
+git add .
+```
+Commit stashed changes 
+```bash
+git commit -m "YOUR_COMMIT"
+```
+Push to github
+```bash
+git push
+```
 
 ## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+You can check out [Amplify docs](https://docs.amplify.aws/) here.
