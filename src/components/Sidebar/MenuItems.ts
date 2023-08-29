@@ -1,5 +1,6 @@
 import { AiFillContainer } from 'react-icons/ai'
-import { BiSolidPurchaseTagAlt } from 'react-icons/bi'
+import { BiSolidPurchaseTagAlt, BiGroup } from 'react-icons/bi'
+
 
   const Menuitems = [
     {
@@ -22,6 +23,24 @@ import { BiSolidPurchaseTagAlt } from 'react-icons/bi'
       title: 'Purchase',
       Icon: BiSolidPurchaseTagAlt,
       href: '/purchase',
+    },
+    {
+      id: 3,
+      title: 'Parties',
+      Icon: BiGroup,
+      href: '/party',
+    },
+    {
+      id: 4,
+      title: 'Items',
+      Icon: BiGroup,
+      href: '/item',
+    },
+    {
+      id: 5,
+      title: 'Expense',
+      Icon: BiGroup,
+      href: '/expense',
     },
     // {
     //   id: uniqueId(),

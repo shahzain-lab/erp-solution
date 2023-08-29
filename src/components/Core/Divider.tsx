@@ -1,8 +1,13 @@
+import { cn } from '@/lib/cn'
 import React from 'react'
 
-const Divider = () => {
+interface Props {
+  className?: string
+}
+
+const Divider = ({className}: Props) => {
   return (
-    <div className='h-1 w-full border-t border-gray-300'></div>
+    <div className={cn('h-1 w-full border-t border-gray-300',className)}></div>
   )
 }
 

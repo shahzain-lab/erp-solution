@@ -1,11 +1,11 @@
-import PurchaseForm from '@/components/Purchase/PurchaseForm'
+import AddItem from '@/components/Item/AddItem'
 import Main from '@/layout/Main'
 import React from 'react'
 
 const page = () => {
   return (
     <Main>
-        <PurchaseForm />
+        <AddItem />
     </Main>
   )
 }
