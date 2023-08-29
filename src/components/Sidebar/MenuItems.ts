@@ -1,5 +1,6 @@
 import { AiFillContainer } from 'react-icons/ai'
-import { BiSolidPurchaseTagAlt, BiGroup } from 'react-icons/bi'
+import { GiExpense } from 'react-icons/gi'
+import { BiSolidPurchaseTagAlt, BiGroup, BiSitemap } from 'react-icons/bi'
 
 
   const Menuitems = [
@@ -33,13 +34,13 @@ import { BiSolidPurchaseTagAlt, BiGroup } from 'react-icons/bi'
     {
       id: 4,
       title: 'Items',
-      Icon: BiGroup,
+      Icon: BiSitemap,
       href: '/item',
     },
     {
       id: 5,
       title: 'Expense',
-      Icon: BiGroup,
+      Icon: GiExpense,
       href: '/expense',
     },
     // {
