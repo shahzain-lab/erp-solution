@@ -78,7 +78,7 @@ const ExpenseForm = () => {
               <TabPanel
                  tabNodes={[{name: 'Expense'}]}
                  panelNodes={[
-                    <div className='flex items-center py-2 w-full gap-3'>
+                    <div key={1} className='flex items-center py-2 w-full gap-3'>
                         {/* <ReadonlyInput
                             value="232323"
                             divClass="w-[20%]"

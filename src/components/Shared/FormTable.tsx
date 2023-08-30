@@ -12,7 +12,7 @@ const FormTable = ({columns, children}: TableProps) => {
     <thead>
         <tr>
             {columns.map((col) => (
-                <th scope="col" className={cn("px-6 py-2 text-left border border-gray-200 text-xs font-medium text-gray-500 uppercase", col.class)}>{col.value}</th>
+                <th key={col.value} scope="col" className={cn("px-6 py-2 text-left border border-gray-200 text-xs font-medium text-gray-500 uppercase", col.class)}>{col.value}</th>
             ))}
         </tr>
     </thead>

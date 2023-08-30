@@ -98,10 +98,7 @@ const AddItem = () => {
             <TabPanel
              className='mt-16'
              tabNodes={[{name:'Pricing'},{name:'Stock'}]}
-             panelNodes={[
-                <Pricing />,
-                <Stock />
-              ]}
+             panelNodes={[<Pricing key={1} />,<Stock key={2} />]}
            />
               <div className='flex justify-between w-full pt-7 '>
               <span></span>

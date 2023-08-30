@@ -78,11 +78,7 @@ const AddParty = () => {
            <TabPanel
              className='mt-16'
              tabNodes={[{name:'Address'},{name:'Credit & Balance'},{name:'Additional Fields'}]}
-             panelNodes={[
-                <PartyAddress />,
-                <CreditDetails />,
-                <Fields />
-              ]}
+             panelNodes={[<PartyAddress key={1} />,<CreditDetails key={2} />,<Fields key={3} />]}
            />
         </div>
         <div className='flex justify-between w-full pt-7 '>

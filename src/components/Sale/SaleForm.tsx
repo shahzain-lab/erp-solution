@@ -78,7 +78,7 @@ const SaleForm = () => {
               <TabPanel
                  tabNodes={[{name: 'Credit'}, {name: 'Cash'}]}
                  panelNodes={[
-                    <div className='flex items-center py-2 w-full gap-3'>
+                    <div key={1} className='flex items-center py-2 w-full gap-3'>
                         <ReadonlyInput
                             value="232323"
                             divClass="w-[20%]"
@@ -89,7 +89,7 @@ const SaleForm = () => {
                             label="Select Party"
                             />
                     </div>,
-                    <div>
+                    <div key={2}>
                             <div>
                                 <label htmlFor="first_name" className="block text-sm font-medium text-gray-600">Billing Name</label>
                                 <input type="text" className="bg-gray-50 border border-gray-300 outline-none text-gray-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2" placeholder="Billing Name" required />

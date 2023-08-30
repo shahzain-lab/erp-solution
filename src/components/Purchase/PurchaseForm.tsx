@@ -76,7 +76,7 @@ const PurchaseForm = () => {
             <TabPanel
                tabNodes={[{name: 'Purchase'}]}
                panelNodes={[
-                  <div className='flex items-center py-2 w-full gap-3'>
+                  <div key={1} className='flex items-center py-2 w-full gap-3'>
                       <CustomerSelect 
                           divClass='w-[50%]'
                           label="Select Party"
