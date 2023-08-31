@@ -13,7 +13,14 @@ import { BiSolidPurchaseTagAlt, BiGroup, BiSitemap } from 'react-icons/bi'
       id: 1,
       title: 'Sale',
       Icon: AiFillContainer,
-      href: '/sale',
+      children: [
+        {
+          id: 1,
+          title: 'Sale Invoices',
+          Icon: AiFillContainer,
+          href: '/sale/sale-list',
+        },
+      ]
     },
     {
       navlabel: true,

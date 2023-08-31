@@ -1,3 +1,5 @@
+'use client'
+
 import Divider from '@/components/Core/Divider'
 import Menuitems from '@/components/Sidebar/MenuItems'
 import SideGroup from '@/components/Sidebar/SideGroup'
