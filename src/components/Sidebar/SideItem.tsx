@@ -31,8 +31,8 @@ const SideItem = ({item}: any) => {
         </div>
         {isOpen && (
             <div className='flex items-center mx-2 gap-2'>
-              {item.children && item.children.map((child: any) => (
-                <Link href={child.href} className='w-full'>
+              {item.children && item.children.map((child: any, i: number) => (
+                <Link key={i} href={child.href} className='w-full'>
                     <div className='bg-violet-800 flex items-center px-2 w-full gap-2 rounded-lg'>
                     
                     <child.Icon />{child.title}
