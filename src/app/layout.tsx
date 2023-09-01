@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google'
 import Sidebar from '@/layout/Sidebar'
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css';
+import { AppProvider } from '@/redux/Provider'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -19,12 +20,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className} suppressHydrationWarning={true}>
-            <Navbar />
-            <div>
-              <Sidebar />
-              {children}
-            </div>
+      <body className={inter.className}>
+          <AppProvider>
+              <Navbar />
+              <div>
+                <Sidebar />
+                {children}
+              </div>
+          </AppProvider>
       </body>
     </html>
   )

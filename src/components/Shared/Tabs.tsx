@@ -7,16 +7,19 @@ function classNames(...classes: string[]) {
 }
 
 interface Props {
-  tabNodes: {name: React.ReactNode | string; class?: string}[];
+  tabNodes: {
+    name: string;
+    class?: string}[];
   panelNodes: React.ReactNode[];
   className?: string
+  handleTabChange?: any
 }
 
-export default function TabPanel({ tabNodes, panelNodes, className }: Props) {
+export default function TabPanel({ tabNodes, panelNodes, handleTabChange, className }: Props) {
 
   return (
     <div className={cn(`w-full `, className)} >
-      <Tab.Group>
+      <Tab.Group onChange={(e) => handleTabChange(tabNodes[e])}>
         <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
           {tabNodes.map((node, id) => (
             <Tab

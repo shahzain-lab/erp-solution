@@ -1,8 +1,6 @@
 'use client'
 
 import React from 'react'
-import ReadonlyInput from '../Core/ReadonlyInput'
-import CustomerSelect from '../Shared/CustomerSelect'
 import Divider from '../Core/Divider'
 import { BiChevronDown } from 'react-icons/bi'
 import Button from '../Core/Button'
@@ -11,62 +9,62 @@ import { validationSchema } from '@/lib/Validation.yup'
 import { v4 as uuidv4 } from 'uuid';
 import TabPanel from '../Shared/Tabs'
 import FormTable from '../Shared/FormTable'
+import { saleItemRow } from './lib/initAddSale'
+import { Select, Option } from "@material-tailwind/react";
+import { Input } from "@material-tailwind/react";
+import { initAddSale } from '@/components/Sale/lib/initAddSale'
+import { useAddSaleMutation } from '@/redux/services/apiSlice'
 
 
 const SaleForm = () => {
+    const [ addSale ] = useAddSaleMutation()
 
-    // init
-    const rowValue = {
-        id: uuidv4(),
-        item: '',
-        quantity: '',
-        unit: '',
-        amount: ''
-    }
     // useFormik
     const formik = useFormik({
         initialValues: {
-            rows: [rowValue],
-            discount: '',
-            discountToPKR: '',
-            total: '',
+            ...initAddSale
         },
         validationSchema: validationSchema,
-        onSubmit: (values) => {
-            console.log('Submitted Values', values)
+        onSubmit: (values, {setSubmitting}) => {
+            setSubmitting(false);
+            addSale(values)
         } 
     })
 
     const handleAddRow = () => {
-        const newRow = { ...rowValue, id: uuidv4() };
-        formik.setFieldValue('rows', [...formik.values.rows, newRow]);
+        const newRow = { ...saleItemRow, itemid: uuidv4() };
+        formik.setFieldValue('rows', [...formik.values.saleItemRows, newRow]);
     };
     
     const handleRemoveRow = (index: number) => {
-        const updatedRows = formik.values.rows.filter((_, i) => i !== index);
+        const updatedRows = formik.values.saleItemRows.filter((_, i) => i !== index);
         const _total = updatedRows.map(row => row.amount).reduce((acc, curr) => Number(acc) + Number(curr), 0)
         if(formik.values.discount) {
             const discount = Math.round(Number(_total) * (Number(formik.values.discount)/100));
-            formik.setValues({...formik.values, rows: updatedRows, discountToPKR: `${discount}`, total: `${Number(_total) - discount}`});
+            formik.setValues({...formik.values, saleItemRows: updatedRows, discountToPKR: `${discount}`, total: `${Number(_total) - discount}`});
         } else {
-            formik.setValues({...formik.values, rows: updatedRows, total: `${_total}`});
+            formik.setValues({...formik.values, saleItemRows: updatedRows, total: `${_total}`});
         }
     };
 
     
     const updateHandle = (value: string, index?: number) => {
-        const updatedRows = [...formik.values.rows];
+        const updatedRows = [...formik.values.saleItemRows];
         
         if(index === 0 || index) {            
             updatedRows[index].amount = value;
             const _total = updatedRows.map(row => row.amount).reduce((acc, curr) => Number(acc) + Number(curr), 0)
             const discount = Math.round(Number(_total) * (Number(formik.values.discount)/100));
-            formik.setValues({ ...formik.values, rows: updatedRows, discountToPKR: `${discount}`, total: `${Number(_total) - discount}` });
+            formik.setValues({ ...formik.values, saleItemRows: updatedRows, discountToPKR: `${discount}`, total: `${Number(_total) - discount}` });
         } else {
             const _total = updatedRows.map(row => row.amount).reduce((acc, curr) => Number(acc) + Number(curr), 0)
             const discount = Math.round(Number(_total) * (Number(value)/100));
             formik.setValues({ ...formik.values, discountToPKR: `${discount}`, total: `${Number(_total) - discount}` });
         }
+    }
+
+    const handleTabChange = (tab: {name: string}) => {
+        formik.setFieldValue('paymentType', tab.name)
     }
 
   return (
@@ -76,27 +74,32 @@ const SaleForm = () => {
             {/* /Cash Switch/  */}
             <div className='flex items-center pb-3'>
               <TabPanel
-                 tabNodes={[{name: 'Credit'}, {name: 'Cash'}]}
+                 tabNodes={[{name: 'credit'}, {name: 'cash'}]}
+                 handleTabChange={handleTabChange}
                  panelNodes={[
                     <div key={1} className='flex items-center py-2 w-full gap-3'>
-                        <ReadonlyInput
-                            value="232323"
-                            divClass="w-[20%]"
-                            label="Customer ID"
-                            />
-                        <CustomerSelect 
-                            divClass='w-[50%]'
-                            label="Select Party"
-                            />
+                            <div className="w-72">
+                            <Input crossOrigin={Input} label="Customer Id" readOnly name={'customerid'} value={formik.values.customerid} />
+                            </div>
+                            <div className='w-72'>
+                            {/* <span className="block mb-2 text-sm font-medium text-gray-900">Select Customer</span> */}
+                                <Select label="Select Customer">
+                                    <Option>Material Tailwind HTML</Option>
+                                    <Option>Material Tailwind React</Option>
+                                    <Option>Material Tailwind Vue</Option>
+                                    <Option>Material Tailwind Angular</Option>
+                                    <Option>Material Tailwind Svelte</Option>
+                                </Select>
+                             </div>
                     </div>,
                     <div key={2}>
                             <div>
                                 <label htmlFor="first_name" className="block text-sm font-medium text-gray-600">Billing Name</label>
-                                <input type="text" className="bg-gray-50 border border-gray-300 outline-none text-gray-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2" placeholder="Billing Name" required />
+                                <input type="text" name={'billingName'} onChange={formik.handleChange} className="bg-gray-50 border border-gray-300 outline-none text-gray-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2" placeholder="Billing Name"  />
                             </div>
                         <div>
                             <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Billing Message</label>
-                            <textarea id="message" rows={3} className="block outline-none p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Billing Address"></textarea>
+                            <textarea id="message" name={'billingMessage'} onChange={formik.handleChange} rows={3} className="block outline-none p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Billing Address"></textarea>
                         </div>
                     </div>
                  ]}
@@ -120,30 +123,30 @@ const SaleForm = () => {
                      ]}
                     >
                       <tbody>
-                            {formik.values.rows.map((row, i) => (
+                            {formik.values.saleItemRows.map((row, i) => (
                                 <tr className="bg-gray-100" key={i}>
                                     <td className="w-16 px-6 py-2 whitespace-nowrap text-sm font-medium border border-gray-200 text-gray-800 ">{i+1}</td>
                                     <td className="w-96 whitespace-nowrap text-sm text-gray-800 border border-gray-200">
-                                    <input name={`rows[${i}].item`} value={row.item} onChange={formik.handleChange} type={'text'} className={"bg-inherit border-none px-6 outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 "}/>
+                                    <input name={`saleItemRows[${i}].itemName`} value={row.itemName} onChange={formik.handleChange} type={'text'} className={"bg-inherit border-none px-6 outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 "}/>
                                     </td>
                                     <td className="w-12 whitespace-nowrap text-sm text-gray-800 border border-gray-200">
-                                    <input name={`rows[${i}].quantity`} value={row.quantity} onChange={(e) => {
+                                    <input name={`saleItemRows[${i}].quantity`} value={row.quantity} onChange={(e) => {
                                         updateHandle(`${Number(e.target.value) * Number(row.unit)}`, i);
                                         formik.handleChange(e);
                                         }} type={'number'} className={"bg-inherit border-none px-2 outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 "}/>
                                     </td>
                                     <td className="w-12 whitespace-nowrap text-sm text-gray-800 border border-gray-200">
-                                    <input name={`rows[${i}].unit`} 
+                                    <input name={`saleItemRows[${i}].unit`} 
                                     value={row.unit} onChange={(e) => {
                                         updateHandle(`${Number(row.quantity) * Number(e.target.value)}`, i);
                                         formik.handleChange(e);
                                         }} type={'number'} className={"bg-inherit border-none px-2 outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 "}/>
                                     </td>
                                     <td className="w-12 px-2 whitespace-nowrap text-sm text-gray-800 border border-gray-200">
-                                    <input name={`rows[${i}].amount`} value={row.amount} readOnly className={"bg-inherit px-2 border-none outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 "}/>
+                                      <span className='bg-inherit px-2 border-none outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 '>{row.amount}</span>
                                     </td>
                                     <td className="w-16 px-6 py-2 whitespace-nowrap text-right text-sm font-medium border border-gray-200">
-                                    {formik.values.rows.length > 1 && (
+                                    {formik.values.saleItemRows.length > 1 && (
                                         <span onClick={() => handleRemoveRow(i)} className="cursor-pointer text-blue-500 hover:text-blue-700">Delete</span>
                                     )}
                                     </td>
@@ -170,7 +173,7 @@ const SaleForm = () => {
                         <option value="check" selected>Check</option>
                         <option value="cash">Cash</option>
                         </select>
-                        <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 outline-none text-gray-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2" placeholder="Add Description" required />
+                        <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 outline-none text-gray-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2" placeholder="Add Description"  />
                     </div>
                 <div>
                     <div className='flex items-center justify-center'>
