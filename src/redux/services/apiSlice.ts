@@ -15,10 +15,31 @@ export const apiSlice = createApi({
       console.log('Values reaches in service ', values)
         return 'todos'
       } 
+    }),
+    addExpense: builder.mutation({
+      query: (values) => {
+        console.log('Values reaches in service ', values)
+        return 'todos'
+      }
+    }),
+    addParty: builder.mutation({
+      query: (values) => {
+        console.log('Values reaches in service ', values)
+        return 'todos'
+      }
+    }),
+    addItem: builder.mutation({
+      query: (values) => {
+        console.log('Values reaches in service ', values)
+        return 'todos'
+      }
     })
   }),
 })
 export const { 
   useAddSaleMutation,
-  useAddPurchaseMutation
+  useAddPurchaseMutation,
+  useAddExpenseMutation,
+  useAddPartyMutation,
+  useAddItemMutation
  } = apiSlice;

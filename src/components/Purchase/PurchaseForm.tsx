@@ -12,6 +12,7 @@ import TabPanel from '../Shared/Tabs'
 import FormTable from '../Shared/FormTable'
 import { purchaseFormEntries, purchaseItemRow } from './lib/purchaseParams'
 import { useAddPurchaseMutation } from '@/redux/services/apiSlice'
+import { Option, Select } from '@material-tailwind/react'
 
 const PurchaseForm = () => {
     const [ addPurchase ] = useAddPurchaseMutation()
@@ -59,6 +60,15 @@ const PurchaseForm = () => {
             formik.setValues({ ...formik.values, discountToPKR: `${discount}`, total: `${Number(_total) - discount}` });
         }
     }
+    
+    const handlePaymentTypeChange = (val?: string) => {
+        formik.setFieldValue('paymentType', val)
+    }
+    
+    const handlePartyChange = (val?: string) => {
+        formik.setFieldValue('party', val)
+    }
+
   return (
     <form onSubmit={formik.handleSubmit} className='flex flex-col justify-between min-h-[90vh]'>
     <div>
@@ -68,11 +78,14 @@ const PurchaseForm = () => {
             <TabPanel
                tabNodes={[{name: 'Purchase'}]}
                panelNodes={[
-                  <div key={1} className='flex items-center py-2 w-full gap-3'>
-                      <CustomerSelect 
-                          divClass='w-[50%]'
-                          label="Select Party"
-                          />
+                  <div key={1} className='flex items-center py-2 w-72 gap-3'>
+                         <Select value={formik.values.party} onChange={handlePartyChange} label="Select Party">
+                            <Option value='HTML'>Material Tailwind HTML</Option>
+                            <Option value='React'>Material Tailwind React</Option>
+                            <Option value='Vue'>Material Tailwind Vue</Option>
+                            <Option value='Angular'>Material Tailwind Angular</Option>
+                            <Option value='Svelte'>Material Tailwind Svelte</Option>
+                        </Select>
                   </div>
                ]}
             />
@@ -116,7 +129,6 @@ const PurchaseForm = () => {
                                   </td>
                                   <td className="w-12 px-2 whitespace-nowrap text-sm text-gray-800 border border-gray-200">
                                   <span className='bg-inherit px-2 border-none outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 '>{row.amount}</span>
-                                  {/* <input name={`rows[${i}].amount`} value={row.amount} readOnly className={"bg-inherit px-2 border-none outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 "}/> */}
                                   </td>
                                   <td className="w-16 px-6 py-2 whitespace-nowrap text-right text-sm font-medium border border-gray-200">
                                   {formik.values.purchaseItemRows.length > 1 && (
@@ -142,10 +154,10 @@ const PurchaseForm = () => {
       <div>
           <div className='w-full flex justify-between'>
                     <div className='flex flex-col gap-3'>
-                      <select id="countries" className="bg-gray-50 border outline-none border-gray-300 text-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2">
-                        <option value="check" selected>Check</option>
-                        <option value="cash">Cash</option>
-                        </select>
+                       <Select value={formik.values.paymentType} onChange={handlePaymentTypeChange} label="Payment Type">
+                            <Option value='cheque'>Cheque</Option>
+                            <Option value='cash'>Cash</Option>
+                        </Select>
                         <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 outline-none text-gray-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2" placeholder="Add Description" />
                     </div>
               <div>

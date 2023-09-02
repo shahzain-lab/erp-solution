@@ -11,62 +11,57 @@ import { validationSchema } from '@/lib/Validation.yup'
 import { v4 as uuidv4 } from 'uuid';
 import TabPanel from '../Shared/Tabs'
 import FormTable from '../Shared/FormTable'
+import { expenseFormEntries, expenseItemRow } from './lib/expenseParams'
+import { Option, Select } from '@material-tailwind/react'
+import { useAddExpenseMutation } from '@/redux/services/apiSlice'
 
 
 const ExpenseForm = () => {
+    const [ addExpense ] = useAddExpenseMutation()
 
-    // init
-    const rowValue = {
-        id: uuidv4(),
-        item: '',
-        quantity: '',
-        unit: '',
-        amount: ''
-    }
     // useFormik
     const formik = useFormik({
         initialValues: {
-            rows: [rowValue],
-            discount: '',
-            discountToPKR: '',
-            total: '',
+            ...expenseFormEntries
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
+            addExpense(values)
             console.log('Submitted Values', values)
         } 
     })
 
     const handleAddRow = () => {
-        const newRow = { ...rowValue, id: uuidv4() };
-        formik.setFieldValue('rows', [...formik.values.rows, newRow]);
+        const newRow = { ...expenseItemRow, id: uuidv4() };
+        formik.setFieldValue('rows', [...formik.values.expenseItemRows, newRow]);
     };
     
     const handleRemoveRow = (index: number) => {
-        const updatedRows = formik.values.rows.filter((_, i) => i !== index);
+        const updatedRows = formik.values.expenseItemRows.filter((_, i) => i !== index);
         const _total = updatedRows.map(row => row.amount).reduce((acc, curr) => Number(acc) + Number(curr), 0)
-        if(formik.values.discount) {
-            const discount = Math.round(Number(_total) * (Number(formik.values.discount)/100));
-            formik.setValues({...formik.values, rows: updatedRows, discountToPKR: `${discount}`, total: `${Number(_total) - discount}`});
-        } else {
-            formik.setValues({...formik.values, rows: updatedRows, total: `${_total}`});
-        }
+        formik.setValues({...formik.values, expenseItemRows: updatedRows, total: `${_total}`});
     };
 
     
     const updateHandle = (value: string, index?: number) => {
-        const updatedRows = [...formik.values.rows];
+        const updatedRows = [...formik.values.expenseItemRows];
         
         if(index === 0 || index) {            
             updatedRows[index].amount = value;
             const _total = updatedRows.map(row => row.amount).reduce((acc, curr) => Number(acc) + Number(curr), 0)
-            const discount = Math.round(Number(_total) * (Number(formik.values.discount)/100));
-            formik.setValues({ ...formik.values, rows: updatedRows, discountToPKR: `${discount}`, total: `${Number(_total) - discount}` });
+            formik.setValues({ ...formik.values, expenseItemRows: updatedRows,  total: `${_total}`});
         } else {
             const _total = updatedRows.map(row => row.amount).reduce((acc, curr) => Number(acc) + Number(curr), 0)
-            const discount = Math.round(Number(_total) * (Number(value)/100));
-            formik.setValues({ ...formik.values, discountToPKR: `${discount}`, total: `${Number(_total) - discount}` });
+            formik.setValues({ ...formik.values, total: `${_total}` });
         }
+    }
+
+    const handlePaymentTypeChange = (val?: string) => {
+        formik.setFieldValue('paymentType', val)
+    }
+
+    const handleCategoryChange = (val?: string) => {
+        formik.setFieldValue('category', val)
     }
 
   return (
@@ -78,17 +73,15 @@ const ExpenseForm = () => {
               <TabPanel
                  tabNodes={[{name: 'Expense'}]}
                  panelNodes={[
-                    <div key={1} className='flex items-center py-2 w-full gap-3'>
-                        {/* <ReadonlyInput
-                            value="232323"
-                            divClass="w-[20%]"
-                            label="Customer ID"
-                            /> */}
-                        <CustomerSelect 
-                            divClass='w-[50%]'
-                            label="Expense Category"
-                            />
-                    </div>
+                    <div key={1} className='flex items-center py-2 w-72 gap-3'>
+                    <Select value={formik.values.category} onChange={handleCategoryChange} label="Select Category">
+                       <Option value='HTML'>Material Tailwind HTML</Option>
+                       <Option value='React'>Material Tailwind React</Option>
+                       <Option value='Vue'>Material Tailwind Vue</Option>
+                       <Option value='Angular'>Material Tailwind Angular</Option>
+                       <Option value='Svelte'>Material Tailwind Svelte</Option>
+                   </Select>
+             </div>
                  ]}
               />
              </div>
@@ -110,30 +103,30 @@ const ExpenseForm = () => {
                      ]}
                     >
                       <tbody>
-                            {formik.values.rows.map((row, i) => (
+                            {formik.values.expenseItemRows.map((row, i) => (
                                 <tr className="bg-gray-100" key={i}>
                                     <td className="w-16 px-6 py-2 whitespace-nowrap text-sm font-medium border border-gray-200 text-gray-800 ">{i+1}</td>
                                     <td className="w-96 whitespace-nowrap text-sm text-gray-800 border border-gray-200">
-                                    <input name={`rows[${i}].item`} value={row.item} onChange={formik.handleChange} type={'text'} className={"bg-inherit border-none px-6 outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 "}/>
+                                    <input name={`expenseItemRows[${i}].itemName`} value={row.itemName} onChange={formik.handleChange} type={'text'} className={"bg-inherit border-none px-6 outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 "}/>
                                     </td>
                                     <td className="w-12 whitespace-nowrap text-sm text-gray-800 border border-gray-200">
-                                    <input name={`rows[${i}].quantity`} value={row.quantity} onChange={(e) => {
+                                    <input name={`expenseItemRows[${i}].quantity`} value={row.quantity} onChange={(e) => {
                                         updateHandle(`${Number(e.target.value) * Number(row.unit)}`, i);
                                         formik.handleChange(e);
                                         }} type={'number'} className={"bg-inherit border-none px-2 outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 "}/>
                                     </td>
                                     <td className="w-12 whitespace-nowrap text-sm text-gray-800 border border-gray-200">
-                                    <input name={`rows[${i}].unit`} 
+                                    <input name={`expenseItemRows[${i}].unit`} 
                                     value={row.unit} onChange={(e) => {
                                         updateHandle(`${Number(row.quantity) * Number(e.target.value)}`, i);
                                         formik.handleChange(e);
                                         }} type={'number'} className={"bg-inherit border-none px-2 outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 "}/>
                                     </td>
                                     <td className="w-12 px-2 whitespace-nowrap text-sm text-gray-800 border border-gray-200">
-                                    <input name={`rows[${i}].amount`} value={row.amount} readOnly className={"bg-inherit px-2 border-none outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 "}/>
+                                      <span className='bg-inherit px-2 border-none outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 '>{row.amount}</span>
                                     </td>
                                     <td className="w-16 px-6 py-2 whitespace-nowrap text-right text-sm font-medium border border-gray-200">
-                                    {formik.values.rows.length > 1 && (
+                                    {formik.values.expenseItemRows.length > 1 && (
                                         <span onClick={() => handleRemoveRow(i)} className="cursor-pointer text-blue-500 hover:text-blue-700">Delete</span>
                                     )}
                                     </td>
@@ -156,11 +149,11 @@ const ExpenseForm = () => {
         <div>
             <div className='w-full flex justify-between'>
                    <div className='flex flex-col gap-3'>
-                      <select id="countries" className="bg-gray-50 border outline-none border-gray-300 text-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2">
-                        <option value="check" selected>Check</option>
-                        <option value="cash">Cash</option>
-                        </select>
-                        <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 outline-none text-gray-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2" placeholder="Add Description" required />
+                       <Select value={formik.values.paymentType} onChange={handlePaymentTypeChange} label="Payment Type">
+                            <Option value='cheque'>Cheque</Option>
+                            <Option value='cash'>Cash</Option>
+                        </Select>
+                        <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 outline-none text-gray-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2" placeholder="Add Description" />
                     </div>
                 <div>
                     <div className='my-3'>

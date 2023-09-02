@@ -64,7 +64,16 @@ const SaleForm = () => {
     }
 
     const handleTabChange = (tab: {name: string}) => {
-        formik.setFieldValue('paymentType', tab.name)
+        formik.setFieldValue('invoiceType', tab.name)
+    }
+
+    const handlePaymentTypeChange = (val?: string) => {
+        formik.setFieldValue('paymentType', val)
+    }
+
+    const handleCustomerChange = (val?: string) => {
+        console.log(val)
+        formik.setFieldValue('customer', val)
     }
 
   return (
@@ -83,12 +92,12 @@ const SaleForm = () => {
                             </div>
                             <div className='w-72'>
                             {/* <span className="block mb-2 text-sm font-medium text-gray-900">Select Customer</span> */}
-                                <Select label="Select Customer">
-                                    <Option>Material Tailwind HTML</Option>
-                                    <Option>Material Tailwind React</Option>
-                                    <Option>Material Tailwind Vue</Option>
-                                    <Option>Material Tailwind Angular</Option>
-                                    <Option>Material Tailwind Svelte</Option>
+                                <Select value={formik.values.customer} onChange={handleCustomerChange} label="Select Customer">
+                                    <Option value='HTML'>Material Tailwind HTML</Option>
+                                    <Option value='React'>Material Tailwind React</Option>
+                                    <Option value='Vue'>Material Tailwind Vue</Option>
+                                    <Option value='Angular'>Material Tailwind Angular</Option>
+                                    <Option value='Svelte'>Material Tailwind Svelte</Option>
                                 </Select>
                              </div>
                     </div>,
@@ -169,10 +178,10 @@ const SaleForm = () => {
         <div>
             <div className='w-full flex justify-between'>
                    <div className='flex flex-col gap-3'>
-                      <select id="countries" className="bg-gray-50 border outline-none border-gray-300 text-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2">
-                        <option value="check" selected>Check</option>
-                        <option value="cash">Cash</option>
-                        </select>
+                        <Select value={formik.values.paymentType} onChange={handlePaymentTypeChange} label="Payment Type">
+                            <Option value='cheque'>Cheque</Option>
+                            <Option value='cash'>Cash</Option>
+                        </Select>
                         <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 outline-none text-gray-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2" placeholder="Add Description"  />
                     </div>
                 <div>

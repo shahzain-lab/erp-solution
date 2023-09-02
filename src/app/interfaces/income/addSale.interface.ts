@@ -2,12 +2,16 @@ import { IOptional } from "../helper.interface";
 
 
 export interface IAddSale {
+    date: string,
+    transactionType: 'sale',
     transactionid: string;
-    paymentType: 'cash' | 'credit';
+    paymentType: 'cash' | 'cheque';
     customerid: string;
-    customer: IOptional<string>; // ICustomer
+    customer: string; // ICustomer
     billingName: IOptional<string>;
     billingMessage: IOptional<string>;
+    invoiceType: 'cash' | 'credit';
+    balanceDue: string;
     saleItemRows: ISaleItemRows[]; // IActualItem
     discount: string;
     discountToPKR: string;

@@ -1,4 +1,3 @@
-import { IAddSale } from "@/app/interfaces/income/addSale.interface"
 import { IAddPurchase } from "@/app/interfaces/liab/addPurchase.interface";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -13,12 +12,13 @@ export const purchaseItemRow = {
 
 export const purchaseFormEntries: IAddPurchase = {
     transactionid: uuidv4(),
-    // paymentType: "credit",
+    date: new Date().toISOString(),
+    paymentType: "cash",
+    transactionType: 'purchase',
     partyid: uuidv4(),
     party: '', // ICustomer
-    // billingName: '',
-    // billingMessage: '',
-    purchaseItemRows: [purchaseItemRow], 
+    balanceDue: '',
+    purchaseItemRows: [purchaseItemRow], //item 
     discount: '',
     discountToPKR: '',
     total: '',

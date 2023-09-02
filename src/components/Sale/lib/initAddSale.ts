@@ -12,12 +12,16 @@ export const saleItemRow = {
 
 export const initAddSale: IAddSale = {
     transactionid: uuidv4(),
-    paymentType: "credit",
+    date: new Date().toISOString(),
+    transactionType: 'sale',
+    paymentType: "cash",
     customerid: uuidv4(),
     customer: '', // ICustomer
     billingName: '',
+    invoiceType: 'credit',
     billingMessage: '',
-    saleItemRows: [saleItemRow], 
+    balanceDue: '',
+    saleItemRows: [saleItemRow], // item 
     discount: '',
     discountToPKR: '',
     total: ''

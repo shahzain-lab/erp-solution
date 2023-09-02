@@ -2,12 +2,13 @@ import { IOptional } from "../helper.interface";
 
 
 export interface IAddPurchase {
+    date: string;
+    transactionType: 'purchase',
     transactionid: string;
-    // paymentType: 'cash' | 'credit';
+    paymentType: 'cash' | 'cheque';
+    balanceDue: string;
     partyid: string;
-    party: IOptional<string>; // ICustomer
-    // billingName: IOptional<string>;
-    // billingMessage: IOptional<string>;
+    party: string; // ICustomer
     purchaseItemRows: IPurchaseItemRows[]; // IActualItem
     discount: string;
     discountToPKR: string;
