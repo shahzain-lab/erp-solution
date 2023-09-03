@@ -1,12 +1,22 @@
 import { AiFillContainer } from 'react-icons/ai'
 import { GiExpense } from 'react-icons/gi'
-import { BiSolidPurchaseTagAlt, BiGroup, BiSitemap } from 'react-icons/bi'
+import { BiSolidPurchaseTagAlt, BiGroup, BiSitemap, BiSolidDashboard } from 'react-icons/bi'
 
 
   const Menuitems = [
     {
       navlabel: true,
       subheader: 'Home',
+    },
+    {
+      id: 1,
+      title: 'Dashboard',
+      Icon: BiSolidDashboard,
+      href: '/'
+    },
+    {
+      navlabel: true,
+      subheader: 'Transactions',
     },
   
     {
@@ -16,21 +26,28 @@ import { BiSolidPurchaseTagAlt, BiGroup, BiSitemap } from 'react-icons/bi'
       children: [
         {
           id: 1,
-          title: 'Sale Invoices',
+          title: 'Invoices',
           Icon: AiFillContainer,
           href: '/sale/sale-list',
         },
       ]
     },
     {
-      navlabel: true,
-      subheader: 'Utility',
-    },
-    {
       id: 2,
       title: 'Purchase',
       Icon: BiSolidPurchaseTagAlt,
-      href: '/purchase',
+      children: [
+        {
+          id: 1,
+          title: 'Invoices',
+          Icon: AiFillContainer,
+          href: '/purchase/invoices',
+        },
+      ]
+    },
+    {
+      navlabel: true,
+      subheader: 'Utility',
     },
     {
       id: 3,

@@ -1,7 +1,12 @@
+import SaleGraphReport from "@/components/dashboard/SaleGraphReport";
+import Main from "@/layout/Main";
 
 
 export default function Home() {
   return (
-    <main>     </main>
+    <Main>
+      <SaleGraphReport />
+      
+    </Main>
   )
 }

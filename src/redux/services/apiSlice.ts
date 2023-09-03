@@ -33,6 +33,13 @@ export const apiSlice = createApi({
         console.log('Values reaches in service ', values)
         return 'todos'
       }
+    }),
+    // updateBusinessProfile => sidebar  
+    updateBusinessProfile: builder.mutation({
+      query: (values) => {
+        console.log('Values reaches in service ', values)
+        return 'todos'
+      }
     })
   }),
 })
@@ -41,5 +48,6 @@ export const {
   useAddPurchaseMutation,
   useAddExpenseMutation,
   useAddPartyMutation,
-  useAddItemMutation
+  useAddItemMutation,
+  useUpdateBusinessProfileMutation
  } = apiSlice;

@@ -12,7 +12,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const Comp = "button"
     return (
       <Comp
-        className={cn(`${variant==='outline' ? 'text-blue-700 bg-white border-blue-700 focus:ring-4 focus:ring-blue-300' : 'text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300'} font-medium border rounded-lg text-sm px-5 py-2`,className)}
+        className={cn(`${variant==='outline' ? 'text-bg_primary bg-white border-bg_primary focus:ring-4 focus:ring-blue-300' : 'text-white bg-bg_primary hover:bg-bg_primary focus:ring-4 focus:ring-bg_primary'} font-medium border rounded-lg text-sm px-5 py-2`,className)}
         ref={ref}
         {...props}
       />

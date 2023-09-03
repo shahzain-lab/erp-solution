@@ -25,7 +25,7 @@ export default function RootLayout({
               <Navbar />
               <div>
                 <Sidebar />
-                {children}
+                  {children}
               </div>
           </AppProvider>
       </body>

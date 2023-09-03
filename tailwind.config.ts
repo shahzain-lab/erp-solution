@@ -20,8 +20,12 @@ const config: Config = {
       },
       colors: {
         txt_primary: '#404D61',
+        bg_primary: '#5d87ff',
         txt_alpha: '#757D8A',
         bg_prime: '#F8F8F8',
+        bg_layout: '#f9f9f9',
+        txt_layout: '#2a3547',
+        layout_light: '#5d87ff1f'
       }
     },
   },
