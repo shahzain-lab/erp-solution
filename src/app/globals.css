@@ -2,3 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+.lineDashboardSaleReportGraph {
+    width: 500px !important;
+} 
+
+.lineDashboardExpenseReportGraph {
+    /* width: 250px !important; */
+    height: 250px !important;
+} 
