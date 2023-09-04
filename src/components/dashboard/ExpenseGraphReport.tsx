@@ -49,7 +49,8 @@ const ExpenseGraphReport = () => {
             data: labels.map(() => Math.floor(Math.random() * 1000)),
             borderColor: 'rgb(53, 162, 235)',
             backgroundColor: 'rgba(53, 162, 235, 0.5)',
-            lineTension: .4
+            lineTension: .4,
+            
           },
         ],
       };
