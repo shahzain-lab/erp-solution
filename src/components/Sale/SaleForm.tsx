@@ -33,29 +33,29 @@ const SaleForm = () => {
 
     const handleAddRow = () => {
         const newRow = { ...saleItemRow, itemid: uuidv4() };
-        formik.setFieldValue('rows', [...formik.values.saleItemRows, newRow]);
+        formik.setFieldValue('items', [...formik.values.items, newRow]);
     };
     
     const handleRemoveRow = (index: number) => {
-        const updatedRows = formik.values.saleItemRows.filter((_, i) => i !== index);
+        const updatedRows = formik.values.items.filter((_, i) => i !== index);
         const _total = updatedRows.map(row => row.amount).reduce((acc, curr) => Number(acc) + Number(curr), 0)
         if(formik.values.discount) {
             const discount = Math.round(Number(_total) * (Number(formik.values.discount)/100));
-            formik.setValues({...formik.values, saleItemRows: updatedRows, discountToPKR: `${discount}`, total: `${Number(_total) - discount}`});
+            formik.setValues({...formik.values, items: updatedRows, discountToPKR: `${discount}`, total: `${Number(_total) - discount}`});
         } else {
-            formik.setValues({...formik.values, saleItemRows: updatedRows, total: `${_total}`});
+            formik.setValues({...formik.values, items: updatedRows, total: `${_total}`});
         }
     };
 
     
     const updateHandle = (value: string, index?: number) => {
-        const updatedRows = [...formik.values.saleItemRows];
+        const updatedRows = [...formik.values.items];
         
         if(index === 0 || index) {            
             updatedRows[index].amount = value;
             const _total = updatedRows.map(row => row.amount).reduce((acc, curr) => Number(acc) + Number(curr), 0)
             const discount = Math.round(Number(_total) * (Number(formik.values.discount)/100));
-            formik.setValues({ ...formik.values, saleItemRows: updatedRows, discountToPKR: `${discount}`, total: `${Number(_total) - discount}` });
+            formik.setValues({ ...formik.values, items: updatedRows, discountToPKR: `${discount}`, total: `${Number(_total) - discount}` });
         } else {
             const _total = updatedRows.map(row => row.amount).reduce((acc, curr) => Number(acc) + Number(curr), 0)
             const discount = Math.round(Number(_total) * (Number(value)/100));
@@ -87,18 +87,18 @@ const SaleForm = () => {
                  handleTabChange={handleTabChange}
                  panelNodes={[
                     <div key={1} className='flex items-center py-2 w-full gap-3'>
-                            <div className="w-72">
+                            {/* <div className="w-72">
                             <Input crossOrigin={Input} label="Customer Id" readOnly name={'customerid'} value={formik.values.customerid} />
-                            </div>
+                            </div> */}
                             <div className='w-72'>
                             {/* <span className="block mb-2 text-sm font-medium text-gray-900">Select Customer</span> */}
-                                <Select value={formik.values.customer} onChange={handleCustomerChange} label="Select Customer">
+                                {/* <Select value={formik.values.customer} onChange={handleCustomerChange} label="Select Customer">
                                     <Option value='HTML'>Material Tailwind HTML</Option>
                                     <Option value='React'>Material Tailwind React</Option>
                                     <Option value='Vue'>Material Tailwind Vue</Option>
                                     <Option value='Angular'>Material Tailwind Angular</Option>
                                     <Option value='Svelte'>Material Tailwind Svelte</Option>
-                                </Select>
+                                </Select> */}
                              </div>
                     </div>,
                     <div key={2}>
@@ -132,20 +132,20 @@ const SaleForm = () => {
                      ]}
                     >
                       <tbody>
-                            {formik.values.saleItemRows.map((row, i) => (
+                            {formik.values.items.map((row, i) => (
                                 <tr className="bg-gray-100" key={i}>
                                     <td className="w-16 px-6 py-2 whitespace-nowrap text-sm font-medium border border-gray-200 text-gray-800 ">{i+1}</td>
                                     <td className="w-96 whitespace-nowrap text-sm text-gray-800 border border-gray-200">
-                                    <input name={`saleItemRows[${i}].itemName`} value={row.itemName} onChange={formik.handleChange} type={'text'} className={"bg-inherit border-none px-6 outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 "}/>
+                                    <input name={`items[${i}].itemName`} value={row.itemName} onChange={formik.handleChange} type={'text'} className={"bg-inherit border-none px-6 outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 "}/>
                                     </td>
                                     <td className="w-12 whitespace-nowrap text-sm text-gray-800 border border-gray-200">
-                                    <input name={`saleItemRows[${i}].quantity`} value={row.quantity} onChange={(e) => {
+                                    <input name={`items[${i}].quantity`} value={row.quantity} onChange={(e) => {
                                         updateHandle(`${Number(e.target.value) * Number(row.unit)}`, i);
                                         formik.handleChange(e);
                                         }} type={'number'} className={"bg-inherit border-none px-2 outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 "}/>
                                     </td>
                                     <td className="w-12 whitespace-nowrap text-sm text-gray-800 border border-gray-200">
-                                    <input name={`saleItemRows[${i}].unit`} 
+                                    <input name={`items[${i}].unit`} 
                                     value={row.unit} onChange={(e) => {
                                         updateHandle(`${Number(row.quantity) * Number(e.target.value)}`, i);
                                         formik.handleChange(e);
@@ -155,7 +155,7 @@ const SaleForm = () => {
                                       <span className='bg-inherit px-2 border-none outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 '>{row.amount}</span>
                                     </td>
                                     <td className="w-16 px-6 py-2 whitespace-nowrap text-right text-sm font-medium border border-gray-200">
-                                    {formik.values.saleItemRows.length > 1 && (
+                                    {formik.values.items.length > 1 && (
                                         <span onClick={() => handleRemoveRow(i)} className="cursor-pointer text-blue-500 hover:text-blue-700">Delete</span>
                                     )}
                                     </td>

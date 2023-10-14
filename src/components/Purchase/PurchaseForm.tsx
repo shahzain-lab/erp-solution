@@ -31,7 +31,7 @@ const PurchaseForm = () => {
 
     const handleAddRow = () => {
         const newRow = { ...purchaseItemRow, id: uuidv4() };
-        formik.setFieldValue('rows', [...formik.values.purchaseItemRows, newRow]);
+        formik.setFieldValue('purchaseItemRows', [...formik.values.purchaseItemRows, newRow]);
     };
     
     const handleRemoveRow = (index: number) => {

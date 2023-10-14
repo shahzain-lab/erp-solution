@@ -6,22 +6,22 @@ export interface IAddPurchase {
     transactionType: 'purchase',
     transactionid: string;
     paymentType: 'cash' | 'cheque';
-    balanceDue: string;
+    balanceDue: number | string;
     partyid: string;
     party: string; // ICustomer
     purchaseItemRows: IPurchaseItemRows[]; // IActualItem
     discount: string;
-    discountToPKR: string;
-    total: string;
+    discountToPKR: number | string;
+    total: number | string;
     isPaying: boolean;
     paid: string;
-    balance: string;
+    balance: number | string;
 }
 
 export interface IPurchaseItemRows {
     itemid: string;
     itemName: string;
-    quantity: string;
-    unit: string;
-    amount: string; 
+    quantity: number | string;
+    unit: number | string;
+    amount: number | string; 
 }

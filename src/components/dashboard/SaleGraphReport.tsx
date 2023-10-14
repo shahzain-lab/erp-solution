@@ -49,8 +49,16 @@ const SaleGraphReport = () => {
           fill: true,
           label: 'Dataset 2',
           data: labels.map(() => Math.floor(Math.random() * 1000)),
-          borderColor: 'rgb(53, 162, 235)',
-          backgroundColor: 'rgba(53, 162, 235, 0.5)',
+          borderColor: '#2563eba6',
+          backgroundColor: '#2563eb30',
+          lineTension: .4
+        },
+        {
+          fill: true,
+          label: 'Dataset 2',
+          data: labels.map(() => Math.floor(Math.random() * 1000)),
+          borderColor: '#e6410e91',
+          backgroundColor: '#f4511e24',
           lineTension: .4
         },
       ],
@@ -63,13 +71,20 @@ const SaleGraphReport = () => {
     }, [])
 
   return (
-    <div className='bg-white rounded-lg p-2 w-[70%]'>
+    <div className='bg-white rounded-lg p-2 w-full'>
         <span className='block text-txt_primary text-2xl font-semibold'>Sales</span>
         <div className='flex items-center justify-between'>
-            <div>
-                <span className='block text-txt_primary text-2xl font-semibold'>RS 96,000.00</span>
-                <span className='block text-txt_alpha text-sm '>281 Total Sales (Jan - Dec)</span>
-            </div>
+            <div className='ml-5 flex flex-col w-[20%] items-center gap-10 border px-2 py-4 border-gray-200 rounded-lg'>
+                <span className='text-txt_primary text-lg font-semibold'>Weekly</span>
+                <div className='text-txt_primary text-center text-md font-semibold'>
+                  <span className='text-2xl text-deep-orange-600'>25K</span>
+                  <p>sales</p>
+                </div>
+                <div className='text-txt_primary text-center text-md font-semibold'>
+                  <span className='text-2xl text-blue-600'>25K</span>
+                  <p>purchase</p>
+                </div>  
+              </div>
             <Line className='lineDashboardSaleReportGraph' style={{width: '500px'}} width={500} height={300} options={{...options, maintainAspectRatio: false}} data={data} />
         </div>
     </div>
