@@ -5,12 +5,9 @@ import { purchase } from "./purchase"
 
 export const item = pgTable('item', {
     id: serial('id').primaryKey().notNull(),
-    itemCode: integer('itemCode').notNull(),
-    saleId: integer('saleId'),
-    purchaseId: integer('purchaseId'),
+    code: integer('itemCode').notNull(),
     name: varchar('name', {length: 256}).notNull(), 
     date: varchar('date', {length: 256}).notNull(), 
-    itemName: varchar('itemName', {length: 256}).notNull(),
     category: varchar('category', {length: 256}).notNull(),
     quantity: integer('quantity'),
     salePrice: integer('salePrice'),

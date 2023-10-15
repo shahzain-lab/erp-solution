@@ -50,6 +50,13 @@
       "when": 1697392780126,
       "tag": "0006_sticky_nuke",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1697394968378,
+      "tag": "0007_known_ares",
+      "breakpoints": true
     }
   ]
 }

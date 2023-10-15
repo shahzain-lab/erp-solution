@@ -33,7 +33,11 @@ export const apiSlice = createApi({
     addVendor: builder.mutation({
       query: (values) => {
         console.log('Values reaches in service ', values)
-        return 'todos'
+        return {
+          url: 'vendor',
+          method: 'POST',
+          body: values
+        }
       }
     }),
     addCustomer: builder.mutation({
@@ -49,7 +53,11 @@ export const apiSlice = createApi({
     addItem: builder.mutation({
       query: (values) => {
         console.log('Values reaches in service ', values)
-        return 'todos'
+        return {
+          url: 'item',
+          method: 'POST',
+          body: values
+        }
       }
     }),
     // updateBusinessProfile => sidebar  

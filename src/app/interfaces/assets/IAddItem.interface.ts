@@ -2,10 +2,10 @@
 
 export interface IAddItem {
     date: string,
-    itemName: string;
+    name: string;
     itemId: string,
     category: string; //string
-    itemCode: number;
+    code: number;
     pricing: IPricing;
     stock: IStock;
 }

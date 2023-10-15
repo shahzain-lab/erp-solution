@@ -34,7 +34,7 @@ const AddItem = () => {
     return (
         <div className='flex flex-col gap-3'>
             <div className='bg-gray-100 border border-gray-300 rounded-lg px-3 py-4'>
-                <Input name='amount' onChange={formik.handleChange} MainClass='mb-3' labal='Sale Price' value={formik.values.pricing.salePrice} />
+                <Input name='pricing.salePrice' onChange={formik.handleChange} MainClass='mb-3' labal='Sale Price' value={formik.values.pricing.salePrice} />
                 {!openWholeSale ? (
                   <span className='text-blue-600 cursor-pointer' onClick={() => setOpenWholeSale(true)}>+ add wholesale amount</span>
                 ) : (
@@ -48,7 +48,7 @@ const AddItem = () => {
                 )}
             </div>
             <div className='bg-gray-100 border border-gray-300 rounded-lg px-3 py-4'>
-                <Input name='amount' MainClass='mb-3' labal='Purchase Price' value={formik.values.pricing.purchasePrice} />
+                <Input name='pricing.purchasePrice' onChange={formik.handleChange} MainClass='mb-3' labal='Purchase Price' value={formik.values.pricing.purchasePrice} />
                 {/* <span className='text-blue-600 cursor-pointer'>+ add wholesale amount</span> */}
             </div>
         </div>
@@ -60,13 +60,13 @@ const AddItem = () => {
     return (
       <div>
          <div className='flex items-center gap-4'>
-            <Input name='openQty' MainClass='mb-3' labal='Opening Quantity' onChange={formik.handleChange} value={formik.values.stock.openQty} />
-            <Input name='atPrice' MainClass='mb-3' labal='At Price' onChange={formik.handleChange} value={formik.values.stock.atPrice} />
-            <Input name='asOfDate' MainClass='mb-3' labal='As of date' onChange={formik.handleChange} value={formik.values.stock.asOfDate} />
+            <Input name='stock.openQty' MainClass='mb-3' labal='Opening Quantity' onChange={formik.handleChange} value={formik.values.stock.openQty} />
+            <Input name='stock.atPrice' MainClass='mb-3' labal='At Price' onChange={formik.handleChange} value={formik.values.stock.atPrice} />
+            <Input name='stock.asOfDate' MainClass='mb-3' labal='As of date' onChange={formik.handleChange} value={formik.values.stock.asOfDate} />
          </div>
          <div className='flex items-center gap-4'>
-            <Input name='minStock' MainClass='mb-3' labal='Min Stock to maintain' onChange={formik.handleChange} value={formik.values.stock.minStock} />
-            <Input name='location' MainClass='mb-3' labal='Location' onChange={formik.handleChange} value={formik.values.stock.location} />
+            <Input name='stock.minStock' MainClass='mb-3' labal='Min Stock to maintain' onChange={formik.handleChange} value={formik.values.stock.minStock} />
+            <Input name='stock.location' MainClass='mb-3' labal='Location' onChange={formik.handleChange} value={formik.values.stock.location} />
          </div>
       </div>
     )
@@ -79,11 +79,11 @@ const AddItem = () => {
          <Divider className='mt-2' />
           <form onSubmit={formik.handleSubmit}>
               <div className='flex gap-5 items-center'>
-                <Input name='itemName' labal='Item Name *' onChange={(e) => formik.handleChange(e)} value={formik.values.itemName} />
+                <Input name='name' labal='Item Name *' onChange={(e) => formik.handleChange(e)} value={formik.values.name} />
                 <Select label='Select Category' options={['Electronics', 'Gadgets', 'Fasion']} addTxt='category' />
               </div>
               <div className='relative'>
-                <Input name='itemCode' type='number' labal='Item Code' onChange={formik.handleChange} value={formik.values.itemCode} />
+                <Input name='code' type='number' labal='Item Code' onChange={formik.handleChange} value={formik.values.code} />
                 <span className="absolute top-8 right-0 bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-1 rounded cursor-pointer">Assign Code</span>
               </div>
               <TabPanel

@@ -19,9 +19,16 @@ const AddParty = () => {
     initialValues: {
         ...partyFormEntries
    },
-   onSubmit: (values) => {
-       addVendor(values)
+   onSubmit: (values, {setSubmitting}) => {
+       setSubmitting(false)
        console.log('values => ',values)
+       const vendor = {
+        ...values,
+        openedBalance: Number(values.openedBalance),
+        limit: Number(values.limit),
+        fields: JSON.stringify(values.fields)
+       }
+       addVendor(vendor)
     }
    })
 
@@ -34,8 +41,8 @@ const AddParty = () => {
     const PartyAddress = () => {
         return (
             <div className='divide-x-2 divide-gray-300 flex gap-4'>
-              <Input name={'partyEmailId'} onChange={formik.handleChange} value={formik.values.email} labal='Email ID *' />
-              <Textarea rows={4} LabalClass='ml-5' InputClass='ml-5' onChange={formik.handleChange} name={'partyBilling'} value={formik.values.billingAddress} labal='Billing Address *' />
+              <Input name={'email'} onChange={formik.handleChange} value={formik.values.email} labal='Email ID *' />
+              <Textarea rows={4} LabalClass='ml-5' InputClass='ml-5' onChange={formik.handleChange} name={'billingAddress'} value={formik.values.billingAddress} labal='Billing Address *' />
             </div>
         )
     }
@@ -71,7 +78,7 @@ const AddParty = () => {
          <form onSubmit={formik.handleSubmit}>
             <div className='mt-3'>
                 <div className='flex items-center gap-2'>
-                    <Input onChange={formik.handleChange} name={'partyName'} value={formik.values.name} labal='Party Name *' />
+                    <Input onChange={formik.handleChange} name={'name'} value={formik.values.name} labal='Party Name *' />
                     <Input onChange={formik.handleChange} name={'phoneNo'} value={formik.values.phoneNo} labal='Phone Number' />
                 </div>
               <TabPanel

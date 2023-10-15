@@ -4,10 +4,10 @@ import { v4 as uuidv4 } from 'uuid';
 
 export const itemFormEntries: IAddItem = {
     date: new Date().toISOString(),
-    itemName: '',
+    name: '',
     itemId: uuidv4(),
     category: '',
-    itemCode: 233,
+    code: 233,
     pricing: {
         salePrice: '',
         purchasePrice: '',
