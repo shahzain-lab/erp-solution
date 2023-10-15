@@ -16,7 +16,7 @@ export const sales = pgTable('sales', {
     customerId: integer('customerId').references(() => customer.id).notNull(),
     moduleId: varchar('moduleId', {length: 50}).notNull(),
     discountToPKR: integer('discountToPKR'),
-    discount: integer('discountToPKR'),
+    discount: integer('discount'),
     billingName: varchar('billingName', {length: 256}),
     invoiceType: varchar('invoiceType', {length: 256}),
     billingMessage: varchar('billingMessage', {length: 1000}),

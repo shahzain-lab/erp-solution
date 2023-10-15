@@ -27,7 +27,15 @@ const SaleForm = () => {
         validationSchema: validationSchema,
         onSubmit: (values, {setSubmitting}) => {
             setSubmitting(false);
-            addSale(values)
+            const sale = {
+                ...values,
+                customerId: 1,
+                balanceDue: Number(values.balanceDue),
+                discount: Number(values.discount),
+                discountToPKR: Number(values.discountToPKR),
+                total: Number(values.total)
+            }               
+            addSale(sale)
         } 
     })
 

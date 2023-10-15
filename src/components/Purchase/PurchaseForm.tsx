@@ -23,9 +23,20 @@ const PurchaseForm = () => {
             ...purchaseFormEntries
         },
         validationSchema: validationSchema,
-        onSubmit: (values) => {
-            addPurchase(values)
+        onSubmit: (values, {setSubmitting}) => {
+            setSubmitting(false)
+            const purchase = {
+                ...values,
+                vendorId: 1,
+                balanceDue: Number(values.balanceDue), 
+                discount: Number(values.discount),
+                discountToPKR: Number(values.discountToPKR),
+                total: Number(values.total),
+                paid: Number(values.paid),
+                balance: Number(values.balance)
+            }
             console.log('Submitted Values', values)
+            addPurchase(purchase)
         } 
     })
 

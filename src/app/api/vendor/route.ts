@@ -1,15 +1,11 @@
 import { db } from "@/lib/drizzle";
-import { customer } from "@/lib/schema/customer";
+import { vendor } from "@/lib/schema/vendor";
 import { NextRequest, NextResponse } from "next/server";
 
 
 export async function GET(req: NextRequest) {
     try{
-        const res = await db.query.customer.findFirst({
-            with: {
-                sales: true
-            }
-        });
+        const res = await db.query.vendor.findFirst();
         console.log(res)
         return NextResponse.json({res})
     }catch(err) {
@@ -19,9 +15,8 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-    const body = await req.json();
     try{
-        const res = await db.insert(customer).values({...body}).returning()
+        const res = await db.insert(vendor).values({name: 'zain', email: 'zain@gmail.com', phone: '02389283', balance: 28322, credits: 37846}).returning()
         console.log('customer', res);
         return NextResponse.json({res});
     }catch(err) {

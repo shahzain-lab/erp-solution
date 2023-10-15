@@ -1,11 +1,11 @@
 
-import AddParty from '@/components/Party/AddParty'
+import AddCustomer from '@/components/Customer/AddCustomer'
 import Main from '@/layout/Main'
 
 const page = () => {
   return (
     <Main>
-       <AddParty />
+       <AddCustomer />
     </Main>
   )
 }

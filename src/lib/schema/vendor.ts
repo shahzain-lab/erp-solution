@@ -8,8 +8,6 @@ export const vendor = pgTable('vendor', {
     name: varchar('name', {length: 256}).notNull(), 
     email: varchar('email', {length: 256}), 
     phone: varchar('phone', {length: 256}), 
-    // address: ICustomerAddress
-    // creditDetails: ICusotmerCredits,
     fields: jsonb('fields'),
     balance: integer('balance'),
     credits: integer('credits'),

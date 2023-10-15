@@ -23,3 +23,19 @@ export interface ICreditDetails {
     toReceive: boolean;
     limit: string;
 }
+
+
+export interface IAddCustomer {
+    date: string
+    name: string
+    phoneNo: string
+    email: string
+    billingAddress: string
+    // shippingAddress: [],
+    openedBalance: string
+    creditDate: string
+    toPay: boolean
+    toReceive: boolean
+    limit: string
+    fields: {text: string}[]
+}

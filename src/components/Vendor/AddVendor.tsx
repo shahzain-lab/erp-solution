@@ -9,18 +9,18 @@ import { useFormik } from 'formik'
 import TabPanel from '../Shared/Tabs'
 import Textarea from '../Core/Textarea'
 import Radio from '../Core/Radio'
-import { partyFormEntries } from './lib/partyParams'
-import { useAddPartyMutation } from '@/redux/services/apiSlice'
+import { partyFormEntries } from './lib/vendorParams'
+import { useAddVendorMutation } from '@/redux/services/apiSlice'
 
 const AddParty = () => {
-  const [ addParty ] = useAddPartyMutation()
+  const [ addVendor ] = useAddVendorMutation()
   const [isOpen, setIsOpen] = useState(false)
   const formik = useFormik({
     initialValues: {
         ...partyFormEntries
    },
    onSubmit: (values) => {
-       addParty(values)
+       addVendor(values)
        console.log('values => ',values)
     }
    })

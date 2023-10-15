@@ -1,18 +1,21 @@
 import { InferInsertModel, InferSelectModel, relations } from "drizzle-orm"
-import { pgTable, serial, varchar, integer, jsonb } from "drizzle-orm/pg-core"
+import { pgTable, serial, varchar, integer, jsonb, boolean } from "drizzle-orm/pg-core"
 import { sales } from "./sale"
 
 
 export const customer = pgTable('customer', {
     id: serial('id').primaryKey().notNull(),
     name: varchar('name', {length: 256}).notNull(), 
-    email: varchar('email', {length: 256}), 
+    email: varchar('email', {length: 256}).notNull(), 
     phone: varchar('phone', {length: 256}), 
-    // address: ICustomerAddress
-    // creditDetails: ICusotmerCredits,
     fields: jsonb('fields'),
-    balance: integer('balance'),
-    credits: integer('credits'),
+    billingAddress: varchar('billingAddress', {length: 256}),
+    // shippingAddress: [],
+    openedBalance: integer('openedBalance'),
+    creditDate: varchar('creditDate', {length: 256}),
+    toPay: boolean('toPay'),
+    toReceive: boolean('toReceive'),
+    limit: integer('limit'),
 }) 
 
 export const customerRelations = relations(customer, ({many}) => ({

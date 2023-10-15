@@ -8,8 +8,7 @@ import { item } from "./item";
 export const purchase = pgTable('purchase', {
     id: serial('id').primaryKey(),
     date: varchar('date', {length: 256}),
-    vendorId: integer('partyId').references(() => vendor.id), 
-    // items: IItems[]; // List of products sold in this transaction
+    vendorId: integer('vendorId').references(() => vendor.id), 
     transactionType: varchar('transactionType', {length: 256}),
     moduleId: varchar('moduleId', {length: 256}),
     paymentType: varchar('paymentType', {length: 256}),

@@ -1,0 +1,411 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "id": "71e81df3-756f-40cd-9ff4-7345a87af7c9",
+  "prevId": "2bf99feb-3fa7-4265-aec9-70f4ac4b9aeb",
+  "tables": {
+    "customer": {
+      "name": "customer",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "phone": {
+          "name": "phone",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fields": {
+          "name": "fields",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "balance": {
+          "name": "balance",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "credits": {
+          "name": "credits",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "item": {
+      "name": "item",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "itemCode": {
+          "name": "itemCode",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "saleId": {
+          "name": "saleId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "purchaseId": {
+          "name": "purchaseId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "date": {
+          "name": "date",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "itemName": {
+          "name": "itemName",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "category": {
+          "name": "category",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "purchase": {
+      "name": "purchase",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "date": {
+          "name": "date",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "partyId": {
+          "name": "partyId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "transactionType": {
+          "name": "transactionType",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "moduleId": {
+          "name": "moduleId",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "paymentType": {
+          "name": "paymentType",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "discountRate": {
+          "name": "discountRate",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "billingName": {
+          "name": "billingName",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "invoiceType": {
+          "name": "invoiceType",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "billingMessage": {
+          "name": "billingMessage",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "balanceDue": {
+          "name": "balanceDue",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "discountAmount": {
+          "name": "discountAmount",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "totalAmount": {
+          "name": "totalAmount",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "isPaying": {
+          "name": "isPaying",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "paid": {
+          "name": "paid",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "balance": {
+          "name": "balance",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "purchase_partyId_vendor_id_fk": {
+          "name": "purchase_partyId_vendor_id_fk",
+          "tableFrom": "purchase",
+          "tableTo": "vendor",
+          "columnsFrom": [
+            "partyId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "sales": {
+      "name": "sales",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "date": {
+          "name": "date",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "transactionType": {
+          "name": "transactionType",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "paymentType": {
+          "name": "paymentType",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "customer_id": {
+          "name": "customer_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "moduleId": {
+          "name": "moduleId",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "discountToPKR": {
+          "name": "discountToPKR",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "discount": {
+          "name": "discount",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "billingName": {
+          "name": "billingName",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "invoiceType": {
+          "name": "invoiceType",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "billingMessage": {
+          "name": "billingMessage",
+          "type": "varchar(1000)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "balanceDue": {
+          "name": "balanceDue",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar(1000)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "total": {
+          "name": "total",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "sales_customer_id_customer_id_fk": {
+          "name": "sales_customer_id_customer_id_fk",
+          "tableFrom": "sales",
+          "tableTo": "customer",
+          "columnsFrom": [
+            "customer_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "vendor": {
+      "name": "vendor",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "phone": {
+          "name": "phone",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fields": {
+          "name": "fields",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "balance": {
+          "name": "balance",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "credits": {
+          "name": "credits",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}

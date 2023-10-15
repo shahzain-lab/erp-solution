@@ -51,9 +51,15 @@ import { BiSolidPurchaseTagAlt, BiGroup, BiSitemap, BiSolidDashboard } from 'rea
     },
     {
       id: 3,
-      title: 'Parties',
+      title: 'Customers',
       Icon: BiGroup,
-      href: '/party',
+      href: '/customer',
+    },
+    {
+      id: 3,
+      title: 'Vendors',
+      Icon: BiGroup,
+      href: '/vendor',
     },
     {
       id: 4,

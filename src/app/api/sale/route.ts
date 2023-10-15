@@ -6,7 +6,11 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
     try{
-        const res = await db.query.sales.findMany();
+        const res = await db.query.sales.findMany({
+            with: {
+                customer: true
+            }
+        });
         console.log(res)
         return NextResponse.json({res})
     }catch(err) {
@@ -17,7 +21,9 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
     try {
-        const res = await db.insert(sales).values({date: new Date().toISOString(), paymentType: 'cash', transactionType: 'sale', customerId: 3, moduleId: 'H1P2' }).returning();
+        const body = await req.json();
+        const {date, paymentType, transactionType, customerId, moduleId, balanceDue, billingMessage, billingName, description, discount, discountToPKR, invoiceType, total} = body
+        const res = await db.insert(sales).values({date, paymentType, transactionType, customerId, moduleId, balanceDue, billingMessage, billingName, description, discount, discountToPKR, invoiceType, total}).returning();
         return NextResponse.json({message: 'inserted', res})
     } catch(err) {
         console.log(err)
