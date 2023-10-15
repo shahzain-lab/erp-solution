@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
     const body = await req.json();
     try{
-        const res = await db.insert(customer).values({...body}).returning()
+        const res = await db.insert(customer).values({...body, phone: body.phoneNo}).returning()
         console.log('customer', res);
         return NextResponse.json({res});
     }catch(err) {

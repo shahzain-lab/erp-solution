@@ -43,6 +43,13 @@
       "when": 1697392390246,
       "tag": "0005_shocking_wonder_man",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1697392780126,
+      "tag": "0006_sticky_nuke",
+      "breakpoints": true
     }
   ]
 }

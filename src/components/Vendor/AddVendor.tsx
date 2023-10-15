@@ -34,8 +34,8 @@ const AddParty = () => {
     const PartyAddress = () => {
         return (
             <div className='divide-x-2 divide-gray-300 flex gap-4'>
-              <Input name={'partyEmailId'} onChange={formik.handleChange} value={formik.values.address.email} labal='Email ID *' />
-              <Textarea rows={4} LabalClass='ml-5' InputClass='ml-5' onChange={formik.handleChange} name={'partyBilling'} value={formik.values.address.billingAddress} labal='Billing Address *' />
+              <Input name={'partyEmailId'} onChange={formik.handleChange} value={formik.values.email} labal='Email ID *' />
+              <Textarea rows={4} LabalClass='ml-5' InputClass='ml-5' onChange={formik.handleChange} name={'partyBilling'} value={formik.values.billingAddress} labal='Billing Address *' />
             </div>
         )
     }
@@ -43,12 +43,12 @@ const AddParty = () => {
         return (
           <div className=''>
             <div className='flex gap-4'>
-                <Input name={'openedBalance'} onChange={formik.handleChange} value={formik.values.creditDetails.openedBalance} labal='Opening Balance *' />
-                <Input name={'creditDate'} onChange={formik.handleChange} value={formik.values.creditDetails.creditDate} labal='As of Date' />
+                <Input name={'openedBalance'} onChange={formik.handleChange} value={formik.values.openedBalance} labal='Opening Balance *' />
+                <Input name={'creditDate'} onChange={formik.handleChange} value={formik.values.creditDate} labal='As of Date' />
             </div>
             <div className='flex my-3 gap-4'>
-                <Radio name={'toPay'} labal='To Pay' onChange={formik.handleChange} checked={formik.values.creditDetails.toPay} />
-                <Radio name={'toPay'} labal='To Receive' checked={formik.values.creditDetails.toPay} />
+                <Radio name={'toPay'} labal='To Pay' onChange={formik.handleChange} checked={formik.values.toPay} />
+                <Radio name={'toPay'} labal='To Receive' checked={formik.values.toPay} />
             </div>
             <span>Credit Limit</span>
           </div>
@@ -65,13 +65,13 @@ const AddParty = () => {
     }
   return (
     <div>
-      <Button onClick={() => setIsOpen(true)}>Add Party</Button>
-      <Modal className='max-w-4xl ' title='Add Party' isOpen={isOpen} setIsOpen={setIsOpen}>
+      <Button onClick={() => setIsOpen(true)}>Add Vendor</Button>
+      <Modal className='max-w-4xl ' title='Add Vendor' isOpen={isOpen} setIsOpen={setIsOpen}>
          <Divider className='mt-2' />
          <form onSubmit={formik.handleSubmit}>
             <div className='mt-3'>
                 <div className='flex items-center gap-2'>
-                    <Input onChange={formik.handleChange} name={'partyName'} value={formik.values.partyName} labal='Party Name *' />
+                    <Input onChange={formik.handleChange} name={'partyName'} value={formik.values.name} labal='Party Name *' />
                     <Input onChange={formik.handleChange} name={'phoneNo'} value={formik.values.phoneNo} labal='Phone Number' />
                 </div>
               <TabPanel

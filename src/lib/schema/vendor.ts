@@ -1,16 +1,21 @@
 import { InferInsertModel, InferSelectModel, relations } from "drizzle-orm"
-import { pgTable, serial, varchar, integer, jsonb } from "drizzle-orm/pg-core"
+import { pgTable, serial, varchar, integer, jsonb, boolean } from "drizzle-orm/pg-core"
 import { purchase } from "./purchase"
 
 
 export const vendor = pgTable('vendor', {
     id: serial('id').primaryKey().notNull(),
     name: varchar('name', {length: 256}).notNull(), 
-    email: varchar('email', {length: 256}), 
+    email: varchar('email', {length: 256}).notNull(), 
     phone: varchar('phone', {length: 256}), 
     fields: jsonb('fields'),
-    balance: integer('balance'),
-    credits: integer('credits'),
+    billingAddress: varchar('billingAddress', {length: 256}),
+    // shippingAddress: [],
+    openedBalance: integer('openedBalance'),
+    creditDate: varchar('creditDate', {length: 256}),
+    toPay: boolean('toPay'),
+    toReceive: boolean('toReceive'),
+    limit: integer('limit'),
 }) 
 
 export const vendorRelations = relations(vendor, ({many}) => ({

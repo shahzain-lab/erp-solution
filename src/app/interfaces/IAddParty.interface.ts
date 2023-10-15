@@ -25,6 +25,22 @@ export interface ICreditDetails {
 }
 
 
+export interface IAddVendor {
+    date: string
+    name: string
+    phoneNo: string
+    email: string
+    billingAddress: string
+    // shippingAddress: [],
+    openedBalance: string
+    creditDate: string
+    toPay: boolean
+    toReceive: boolean
+    limit: string
+    fields: {text: string}[]
+}
+
+
 export interface IAddCustomer {
     date: string
     name: string

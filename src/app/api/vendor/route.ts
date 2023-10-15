@@ -15,8 +15,9 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+    const body = await req.json();
     try{
-        const res = await db.insert(vendor).values({name: 'zain', email: 'zain@gmail.com', phone: '02389283', balance: 28322, credits: 37846}).returning()
+        const res = await db.insert(vendor).values({...body, phone: body.phoneNo}).returning()
         console.log('customer', res);
         return NextResponse.json({res});
     }catch(err) {
